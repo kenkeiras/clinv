@@ -35,6 +35,8 @@ from clinv.sources.aws import \
     IAMUsersrc, \
     IAMGroupsrc
 
+from clinv.sources.hetzner import HetznerCloudVMsrc
+
 from clinv.sources.risk_management import \
     Informationsrc, Projectsrc, Servicesrc, Peoplesrc
 from yaml import YAMLError
@@ -43,16 +45,17 @@ import os
 import yaml
 
 active_source_plugins = [
-    EC2src,
-    IAMGroupsrc,
-    IAMUsersrc,
-    Informationsrc,
-    Peoplesrc,
-    Projectsrc,
-    RDSsrc,
-    Route53src,
-    S3src,
-    Servicesrc,
+    # EC2src,
+    # IAMGroupsrc,
+    # IAMUsersrc,
+    # Informationsrc,
+    # Peoplesrc,
+    # Projectsrc,
+    # RDSsrc,
+    # Route53src,
+    # S3src,
+    # Servicesrc,
+    HetznerCloudVMsrc
 ]
 
 
@@ -334,5 +337,7 @@ class Inventory():
             Nothing.
         """
 
-        with open(os.path.expanduser(yaml_path), 'w+') as f:
+        full_path = os.path.expanduser(yaml_path)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, 'w+') as f:
             yaml.dump(variable, f, default_flow_style=False)
